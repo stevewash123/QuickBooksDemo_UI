@@ -1,0 +1,451 @@
+.job-detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-back {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.job-info {
+  padding: 2rem;
+}
+
+.job-info h2 {
+  margin: 0 0 2rem 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.customer-section h3,
+.line-items-section h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.customer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.customer-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.customer-details {
+  text-align: right;
+  color: #6c757d;
+}
+
+.job-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.description-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.description-section h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 0.5rem;
+}
+
+.description {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  min-height: 50px;
+}
+
+.line-items-table {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+.table-header > div,
+.table-row > div {
+  padding: 1rem 0.75rem;
+  border-right: 1px solid #dee2e6;
+}
+
+.table-header > div:last-child,
+.table-row > div:last-child {
+  border-right: none;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.totals {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  padding: 0.5rem 0;
+}
+
+.total-row.final {
+  border-top: 2px solid #dee2e6;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.status {
+  font-weight: 500;
+}
+
+.status-section,
+.date-section,
+.job-type-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.job-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+}
+
+.completion-info {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background-color: #d4edda;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+}
+
+label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .customer-info {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .customer-details {
+    text-align: left;
+  }
+
+  .detail-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .job-summary {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .table-header > div,
+  .table-row > div {
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .totals {
+    align-items: stretch;
+  }
+
+  .total-row {
+    width: 100%;
+  }
+}
+
+/* QuickBooks Integration Styles */
+.quickbooks-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quickbooks-status-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+.quickbooks-status-section h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #ffc107;
+  padding-bottom: 0.5rem;
+}
+
+.qb-status {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.connected {
+  background-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+}
+
+.status-dot.disconnected {
+  background-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+.status-text {
+  font-weight: 500;
+  color: #495057;
+}
+
+.qb-actions-inline {
+  margin-top: 0.5rem;
+}
+
+.qb-recent-activity {
+  margin-top: 1rem;
+}
+
+.qb-recent-activity h4 {
+  margin: 0 0 0.75rem 0;
+  color: #495057;
+  font-size: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.activity-item:last-child {
+  margin-bottom: 0;
+}
+
+.activity-type {
+  font-weight: 500;
+  color: #28a745;
+}
+
+.activity-id {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.activity-date {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .quickbooks-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quickbooks-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

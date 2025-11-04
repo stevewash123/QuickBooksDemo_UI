@@ -1,0 +1,103 @@
+<div class="job-list-container">
+  <!-- Header -->
+  <div class="header">
+    <h2>Jobs Dashboard</h2>
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="reseedDatabase()" [disabled]="reseedingInProgress">
+        {{ reseedingInProgress ? 'Reseeding...' : '🔄 Reseed Demo Data' }}
+      </button>
+      <button class="btn btn-primary" (click)="createNewJob()">+ New Job</button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-section">
+      <label>Filters:</label>
+      <select [(ngModel)]="selectedStatus" (change)="onFilterChange()" class="filter-select">
+        <option value="all">All Status</option>
+        <option value="Quote">Quote</option>
+        <option value="InProgress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+
+      <select [(ngModel)]="selectedType" (change)="onFilterChange()" class="filter-select">
+        <option value="all">All Types</option>
+        <option value="Installation">Installation</option>
+        <option value="ServiceCall">Service Call</option>
+        <option value="Repair">Repair</option>
+      </select>
+
+      <select [(ngModel)]="selectedTechnician" (change)="onFilterChange()" class="filter-select">
+        <option value="all">All Techs</option>
+        <option *ngFor="let tech of technicians" [value]="tech.id">{{ tech.name }}</option>
+      </select>
+    </div>
+
+    <div class="search-section">
+      <label>Search:</label>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onFilterChange()"
+        placeholder="Search jobs..."
+        class="search-input">
+      <span class="search-icon">🔍</span>
+    </div>
+  </div>
+
+  <!-- Job Table -->
+  <div class="job-table">
+    <div class="table-header">
+      <div class="col-status">Status</div>
+      <div class="col-customer">Customer</div>
+      <div class="col-description">Description</div>
+      <div class="col-tech">Tech</div>
+      <div class="col-amount">Amount</div>
+      <div class="col-actions">Actions</div>
+    </div>
+
+    <div class="table-body">
+      <div *ngFor="let job of filteredJobs" class="job-row">
+        <div class="col-status">
+          <span
+            [class]="getStatusClass(job.status)"
+            [title]="getStatusText(job.status)"
+            class="status-indicator">
+            {{ getStatusIcon(job.status) }}
+          </span>
+        </div>
+
+        <div class="col-customer">
+          <div class="customer-name">{{ job.customerName }}</div>
+          <div class="job-date">{{ formatDate(job.createdDate) }}</div>
+        </div>
+
+        <div class="col-description">
+          <div class="job-description">{{ job.description }}</div>
+          <div class="job-type">{{ job.jobType }}</div>
+        </div>
+
+        <div class="col-tech">
+          {{ job.assignedTechnicianName || '—' }}
+        </div>
+
+        <div class="col-amount">
+          {{ formatCurrency(job.actualAmount || job.quotedAmount) }}
+        </div>
+
+        <div class="col-actions">
+          <button class="btn btn-details" (click)="viewJob(job.id)">View Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span>Legend:</span>
+    <span class="status-quote">🟡 Quote</span>
+    <span class="status-progress">🔵 In Progress</span>
+    <span class="status-complete">🟢 Complete</span>
+  </div>
+</div>

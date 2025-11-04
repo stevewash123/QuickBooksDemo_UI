@@ -1,0 +1,137 @@
+<div class="job-detail-container" *ngIf="!loading && job">
+  <!-- Header -->
+  <div class="header">
+    <button class="btn btn-back" (click)="goBack()">← Back to Jobs</button>
+    <div class="actions">
+      <button class="btn btn-success"
+              (click)="sendToQuickBooks('invoice')"
+              title="Send as Invoice to QuickBooks">
+        📄 Send Invoice to QB
+      </button>
+      <button class="btn btn-primary" (click)="editJob()">Edit</button>
+      <button class="btn btn-danger" (click)="deleteJob()">Delete</button>
+    </div>
+  </div>
+
+  <!-- Job Info -->
+  <div class="job-info">
+    <h2>Job {{ job.id }}</h2>
+
+    <div class="info-grid">
+      <div class="job-summary">
+        <div class="status-section">
+          <label>Status: </label>
+          <span class="status">{{ getStatusIcon(job.status) }} {{ getStatusText(job.status) }}</span>
+        </div>
+        <div class="date-section">
+          <label>Created: </label>
+          <span>{{ formatDate(job.createdDate) }}</span>
+        </div>
+        <div class="job-type-section">
+          <label>Job Type: </label>
+          <span>{{ getJobTypeText(job.jobType) }}</span>
+        </div>
+      </div>
+
+      <div class="job-overview">
+        <div class="job-basics">
+          <div class="detail-row" *ngIf="job.assignedTechnicianName">
+            <label>Assigned Technician:</label>
+            <span>{{ job.assignedTechnicianName }}</span>
+          </div>
+          <div class="detail-row" *ngIf="job.scheduledDate">
+            <label>Scheduled Date:</label>
+            <span>{{ formatDate(job.scheduledDate) }}</span>
+          </div>
+          <div class="detail-row" *ngIf="job.completedDate">
+            <label>Completed Date:</label>
+            <span>{{ formatDate(job.completedDate) }}</span>
+          </div>
+        </div>
+
+        <div class="customer-section">
+          <h3>Customer Information</h3>
+          <div class="customer-info">
+            <div class="customer-name">{{ job.customerName }}</div>
+            <div class="customer-details">
+              <div>Phone: (555) 0100</div>
+              <div>Email: customer@email.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="description-section">
+        <h3>Job Description</h3>
+        <div class="description">{{ job.description }}</div>
+      </div>
+
+      <!-- Line Items -->
+      <div class="line-items-section">
+        <h3>Line Items</h3>
+        <div class="line-items-table">
+          <div class="table-header">
+            <div>Description</div>
+            <div>Materials</div>
+            <div>Labor Hrs</div>
+            <div>Labor Cost</div>
+            <div>Total</div>
+          </div>
+          <div class="table-row" *ngFor="let item of job.lineItems">
+            <div>{{ item.description }}</div>
+            <div>{{ formatCurrency(item.materialCost) }}</div>
+            <div>{{ item.laborHours }} hrs</div>
+            <div>{{ formatCurrency(item.laborCost) }}</div>
+            <div>{{ formatCurrency(item.totalCost) }}</div>
+          </div>
+        </div>
+
+        <div class="totals">
+          <div class="total-row">
+            <span>Total Materials:</span>
+            <span>{{ formatCurrency(getTotalMaterialCost()) }}</span>
+          </div>
+          <div class="total-row">
+            <span>Total Labor:</span>
+            <span>{{ formatCurrency(getTotalLaborCost()) }}</span>
+          </div>
+          <div class="total-row final">
+            <span>Job Total:</span>
+            <span>{{ formatCurrency(job.totalLineItemCost) }}</span>
+          </div>
+          <div class="total-row">
+            <span>Quoted Amount:</span>
+            <span>{{ formatCurrency(job.quotedAmount) }}</span>
+          </div>
+          <div class="total-row" *ngIf="job.actualAmount">
+            <span>Actual Amount:</span>
+            <span>{{ formatCurrency(job.actualAmount) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QuickBooks Integration Status -->
+      <div class="quickbooks-status-section">
+        <h3>QuickBooks Integration</h3>
+        <div class="qb-status">
+          <div class="status-indicator">
+            <span class="status-dot connected"></span>
+            <span class="status-text">✅ Connected to QuickBooks (Demo)</span>
+          </div>
+          <div class="qb-recent-activity" *ngIf="quickBooksActivity.length > 0">
+            <h4>Recent Activity</h4>
+            <div class="activity-item" *ngFor="let activity of quickBooksActivity">
+              <span class="activity-type">{{ activity.type }}</span>
+              <span class="activity-id">ID: {{ activity.quickBooksId }}</span>
+              <span class="activity-date">{{ formatDate(activity.date) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+  Loading job details...
+</div>

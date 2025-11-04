@@ -1,0 +1,13 @@
+<div class="app-layout">
+  <header class="app-header">
+    <h1>{{ title }}</h1>
+    <nav class="app-nav">
+      <a routerLink="/jobs" routerLinkActive="active">Jobs</a>
+      <a routerLink="/invoices" routerLinkActive="active">Invoices</a>
+      <a routerLink="/technicians" routerLinkActive="active">Technicians</a>
+    </nav>
+  </header>
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
