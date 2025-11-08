@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.css'
 })
 export class App {
-  title = 'Cripple Creek Electrical Contractors';
+  title = 'QuickBooks Demo: Cripple Creek Electrical Contractors';
 }
