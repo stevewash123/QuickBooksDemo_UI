@@ -6,11 +6,12 @@ import { ApiService } from '../../../services/api.service';
 import { Job, JobStatus, JobType } from '../../../models/job.model';
 import { Technician } from '../../../models/technician.model';
 import { Subscription, filter } from 'rxjs';
+import { JobTypePipe } from '../../../pipes/job-type.pipe';
 
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, JobTypePipe],
   templateUrl: './job-list.component.html',
   styleUrl: './job-list.component.css'
 })
