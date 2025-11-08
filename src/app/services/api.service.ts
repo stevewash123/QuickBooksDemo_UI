@@ -11,13 +11,22 @@ import { NotificationService } from './notification.service';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:5042/api';
+  private baseUrl = this.getApiUrl();
   private readonly requestTimeout = 10000; // 10 seconds
 
   constructor(
     private http: HttpClient,
     private notificationService: NotificationService
   ) {}
+
+  private getApiUrl(): string {
+    // Check if we're in production (on Render)
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+      return 'https://quickbooksdemo-api.onrender.com/api';
+    }
+    // Default to localhost for development
+    return 'http://localhost:5042/api';
+  }
 
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     console.error('API Error:', error);

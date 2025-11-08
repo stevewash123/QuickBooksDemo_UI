@@ -32,13 +32,22 @@ export interface Invoice {
   providedIn: 'root'
 })
 export class QuickBooksService {
-  private apiUrl = 'http://localhost:5042/api/quickbooks';
+  private apiUrl = this.getApiUrl();
   private readonly requestTimeout = 15000; // 15 seconds for QB operations
 
   constructor(
     private http: HttpClient,
     private notificationService: NotificationService
   ) { }
+
+  private getApiUrl(): string {
+    // Check if we're in production (on Render)
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+      return 'https://quickbooksdemo-api.onrender.com/api/quickbooks';
+    }
+    // Default to localhost for development
+    return 'http://localhost:5042/api/quickbooks';
+  }
 
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     console.error('QuickBooks API Error:', error);
