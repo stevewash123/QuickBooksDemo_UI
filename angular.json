@@ -14,6 +14,7 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
+            "outputPath": "dist/development",
             "polyfills": [
               "zone.js"
             ],
@@ -30,6 +31,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/production",
               "budgets": [
                 {
                   "type": "initial",
