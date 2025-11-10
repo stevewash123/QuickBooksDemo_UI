@@ -5,9 +5,19 @@
       <a routerLink="/jobs" routerLinkActive="active">Jobs</a>
       <a routerLink="/invoices" routerLinkActive="active">Invoices</a>
       <a routerLink="/technicians" routerLinkActive="active">Technicians</a>
+      <button class="tour-btn" (click)="startTour()" title="Restart Demo Tour">
+        🎯 Demo Tour
+      </button>
     </nav>
   </header>
-  <main class="app-main">
+  <main class="app-main" id="main-content">
     <router-outlet></router-outlet>
   </main>
+
+  <!-- Tour Dialog -->
+  <app-tour-dialog
+    *ngIf="showTourDialog"
+    (accept)="onTourAccepted()"
+    (cancel)="onTourCanceled()">
+  </app-tour-dialog>
 </div>

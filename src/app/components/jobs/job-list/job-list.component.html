@@ -1,7 +1,7 @@
 <div class="job-list-container">
   <!-- Header -->
   <div class="header">
-    <h2>Jobs Dashboard</h2>
+    <h2 id="jobs-title">Jobs Dashboard</h2>
     <div class="header-actions">
       <button class="btn btn-secondary" (click)="reseedDatabase()" [disabled]="reseedingInProgress">
         {{ reseedingInProgress ? 'Reseeding...' : '🔄 Reseed Demo Data' }}
@@ -47,7 +47,7 @@
   </div>
 
   <!-- Job Table -->
-  <div class="job-table">
+  <div class="job-table jobs-grid" id="jobs-grid">
     <div class="table-header">
       <div class="col-status">Status</div>
       <div class="col-customer">Customer</div>
@@ -58,7 +58,12 @@
     </div>
 
     <div class="table-body">
-      <div *ngFor="let job of filteredJobs" class="job-row">
+      <div *ngFor="let job of filteredJobs; let i = index"
+           class="job-row"
+           [class.completed-job-row]="job.status === 2 || job.status === 'Completed'"
+           [attr.data-job-id]="job.id"
+           [id]="i === 0 ? 'job-row-1' : null"
+           (click)="viewJob(job.id)">
         <div class="col-status">
           <span
             [class]="getStatusClass(job.status)"
@@ -86,7 +91,10 @@
         </div>
 
         <div class="col-actions">
-          <button class="btn btn-details" (click)="viewJob(job.id)">View Details</button>
+          <button class="btn btn-details"
+                  [id]="i === 0 ? 'create-invoice-btn' : null"
+                  [disabled]="tourService.isTourRunning() && tourService.getCurrentStep() === 1"
+                  (click)="viewJob(job.id)">View Details</button>
         </div>
       </div>
     </div>

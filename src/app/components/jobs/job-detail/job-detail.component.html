@@ -1,9 +1,10 @@
-<div class="job-detail-container" *ngIf="!loading && job">
+<div class="job-detail-container job-details" id="job-details" *ngIf="!loading && job">
   <!-- Header -->
   <div class="header">
     <button class="btn btn-back" (click)="goBack()">← Back to Jobs</button>
     <div class="actions">
-      <button class="btn btn-success"
+      <button class="btn btn-success create-invoice-btn"
+              id="create-invoice-btn"
               (click)="sendToQuickBooks('invoice')"
               title="Send as Invoice to QuickBooks">
         📄 Send Invoice to QB

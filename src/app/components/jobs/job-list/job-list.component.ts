@@ -7,6 +7,7 @@ import { Job, JobStatus, JobType } from '../../../models/job.model';
 import { Technician } from '../../../models/technician.model';
 import { Subscription, filter } from 'rxjs';
 import { JobTypePipe } from '../../../pipes/job-type.pipe';
+import { TourService } from '../../../services/tour.service';
 
 @Component({
   selector: 'app-job-list',
@@ -34,7 +35,8 @@ export class JobListComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    public tourService: TourService
   ) {}
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { QuickBooksService } from '../../../services/quickbooks.service';
 import { NotificationService } from '../../../services/notification.service';
+import { TourService } from '../../../services/tour.service';
 import { Job, JobStatus, JobType } from '../../../models/job.model';
 
 interface QuickBooksActivity {
@@ -29,13 +30,21 @@ export class JobDetailComponent implements OnInit {
     private quickBooksService: QuickBooksService,
     private notificationService: NotificationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tourService: TourService
   ) {}
 
   ngOnInit() {
     const jobId = this.route.snapshot.paramMap.get('id');
     if (jobId) {
       this.loadJob(jobId);
+    }
+
+    // Advance tour if active and on step 3 (coming from completed job click)
+    if (this.tourService.isTourRunning() && this.tourService.getCurrentStep() === 2) {
+      setTimeout(() => {
+        this.tourService.advanceTour();
+      }, 1000); // Wait for page to render
     }
   }
 
@@ -170,6 +179,10 @@ export class JobDetailComponent implements OnInit {
 
     const asInvoice = type === 'invoice';
 
+    // Handle tour advancement regardless of QB success/failure
+    const isTourActive = this.tourService.isTourRunning();
+    const currentStep = this.tourService.getCurrentStep();
+
     this.quickBooksService.sendJobToQuickBooks(this.job.id, asInvoice)
       .subscribe({
         next: (response) => {
@@ -185,9 +198,27 @@ export class JobDetailComponent implements OnInit {
             `${docType} ${response.quickBooksId} successfully sent to QuickBooks!`,
             'QuickBooks Success'
           );
+
+          // Advance tour to invoices page if active
+          if (isTourActive && currentStep === 4 && asInvoice) {
+            setTimeout(() => {
+              this.tourService.advanceToInvoicesPage();
+            }, 2000); // Wait for notification to show
+          }
         },
         error: (error) => {
           console.error('Error sending to QuickBooks:', error);
+
+          // Even if QB fails, continue tour for demo purposes
+          if (isTourActive && currentStep === 4 && asInvoice) {
+            this.notificationService.showSuccess(
+              'Demo: Simulating invoice creation for tour purposes!',
+              'Demo Mode'
+            );
+            setTimeout(() => {
+              this.tourService.advanceToInvoicesPage();
+            }, 2000);
+          }
           // Error notification is handled by the QuickBooksService
         }
       });

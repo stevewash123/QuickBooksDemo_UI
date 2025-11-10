@@ -254,6 +254,27 @@
   font-weight: 500;
 }
 
+/* Tour-specific styles */
+.completed-job-row {
+  background-color: #d1ecf1 !important;
+  border-left: 4px solid #17a2b8;
+}
+
+.completed-job-row:hover {
+  background-color: #bee5eb !important;
+  cursor: pointer;
+}
+
+.completed-job-row .status-indicator {
+  animation: pulse-completed 2s infinite;
+}
+
+@keyframes pulse-completed {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 @media (max-width: 768px) {
   .filters {
     flex-direction: column;

@@ -9,13 +9,13 @@ import { QuickBooksService, Invoice } from '../../services/quickbooks.service';
   template: `
     <div class="invoice-list-container">
       <div class="header">
-        <h2>QuickBooks Invoices</h2>
+        <h2>QuickBooks Invoices 🔗</h2>
         <div class="status-badge">
-          ✅ Connected to QuickBooks (Demo)
+          ✅ Connected to QuickBooks Online
         </div>
       </div>
 
-      <div class="invoice-table">
+      <div class="invoice-table invoices-grid" id="invoices-grid">
         <div class="table-header">
           <div class="col-id">Invoice ID</div>
           <div class="col-customer">Customer</div>
@@ -25,8 +25,13 @@ import { QuickBooksService, Invoice } from '../../services/quickbooks.service';
         </div>
 
         <div class="table-body">
-          <div *ngFor="let invoice of invoices" class="invoice-row">
-            <div class="col-id">{{ invoice.id }}</div>
+          <div *ngFor="let invoice of invoices"
+               class="invoice-row"
+               [class.new-invoice-highlight]="invoice.id.toString() === newInvoiceId?.toString()"
+               [attr.data-invoice-id]="invoice.id">
+            <div class="col-id">
+              <span class="qb-icon">📄</span> {{ invoice.id }}
+            </div>
             <div class="col-customer">{{ invoice.customerName }}</div>
             <div class="col-amount">{{ formatCurrency(invoice.amount) }}</div>
             <div class="col-date">{{ formatDate(invoice.date) }}</div>
@@ -151,12 +156,39 @@ import { QuickBooksService, Invoice } from '../../services/quickbooks.service';
       font-size: 12px;
     }
 
+    .qb-icon {
+      margin-right: 8px;
+      color: #0077C5;
+    }
+
+    .new-invoice-highlight {
+      background: #d4edda !important;
+      border-left: 4px solid #28a745;
+      animation: highlight-fade 10s ease-out;
+    }
+
+    @keyframes highlight-fade {
+      0% { background: #d4edda !important; }
+      100% { background: white; }
+    }
+
+    .qb-icon {
+      animation: pulse-qb 2s infinite;
+    }
+
+    @keyframes pulse-qb {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
   `]
 })
 export class InvoiceListComponent implements OnInit {
   invoices: Invoice[] = [];
   loading = false;
   error: string | null = null;
+  newInvoiceId: number | null = null;
 
   constructor(private quickBooksService: QuickBooksService) {}
 
