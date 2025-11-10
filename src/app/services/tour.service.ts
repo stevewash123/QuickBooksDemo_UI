@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
 
 @Injectable({
   providedIn: 'root'
