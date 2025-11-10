@@ -63,7 +63,8 @@
            [class.completed-job-row]="job.status === 2 || job.status === 'Completed'"
            [attr.data-job-id]="job.id"
            [id]="i === 0 ? 'job-row-1' : null"
-           (click)="viewJob(job.id)">
+           [class.tour-disabled]="tourService.isTourRunning() && tourService.getCurrentStep() === 1"
+           (click)="onJobRowClick(job.id)">
         <div class="col-status">
           <span
             [class]="getStatusClass(job.status)"

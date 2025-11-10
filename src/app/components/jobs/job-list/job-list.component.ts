@@ -227,6 +227,14 @@ export class JobListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/jobs', jobId]);
   }
 
+  onJobRowClick(jobId: string) {
+    // Don't navigate during tour step 2 (step 1 in 0-indexed)
+    if (this.tourService.isTourRunning() && this.tourService.getCurrentStep() === 1) {
+      return;
+    }
+    this.viewJob(jobId);
+  }
+
   reseedDatabase() {
     if (this.reseedingInProgress) return;
 

@@ -173,6 +173,15 @@
   background-color: #f8f9fa;
 }
 
+.job-row.tour-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.job-row.tour-disabled:hover {
+  background-color: initial;
+}
+
 .job-row > div {
   padding: 1rem 0.75rem;
   border-right: 1px solid #dee2e6;
